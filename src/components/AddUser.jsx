@@ -4,11 +4,11 @@ import {  createGlobalStyle  } from 'styled-components';
 import { useHistory } from 'react-router-dom'
 import axios from 'axios';
 import uuid from 'react-uuid'
-import { ProFileUpload } from '../../selectors/ProfileUpload'
-import Swal from 'sweetalert2'
-import '../../styles/Styles.css'
 
-import logologin from '../img/logologin.svg'
+import Swal from 'sweetalert2'
+
+
+
 const GlobalStyle = createGlobalStyle`
   body {
     background-color: #16161A;
@@ -151,7 +151,13 @@ const AddUser = ({ users }) => {
     }
     })
 
-    const { id, name,username, address:{street,suite,city,zipcode,geo:{lat,lng}},phone,website,company:{cname,catchPhrase,bs}} = user
+    const { id, name,username,email, 
+    address:{street,suite,city,zipcode,
+    geo:{lat,lng}},
+    phone,
+    website,
+    company:{cname,catchPhrase,bs}
+    } = user
     
 
     const handleInputChange = (e) => {
@@ -170,13 +176,22 @@ const AddUser = ({ users }) => {
 
         try {
             const resultado = await axios.post(`https://jsonplaceholder.typicode.com/users`, {
-                id:uuid,
+                id:uuid(),
               
                  name:name,
                  username:username,
                  email:email, 
-                address:{street:street,suite:suite,city:city,zipcode:zipcode,geo:{lat:lat,lng:lng}},
-                phone:phone,website:website,company:{name:cname,catchPhrase:catchPhrase,bs:bs
+                address:{street:street,
+                suite:suite,
+                city:city,
+                zipcode:zipcode,
+                geo:{lat:lat,
+                lng:lng}},
+                phone:phone
+                ,website:website
+                ,company:{name:cname,
+                catchPhrase:catchPhrase,
+                bs:bs
                 
             }});
 
@@ -217,25 +232,55 @@ const AddUser = ({ users }) => {
 
         <HrLogin />
         <LoginLabel htmlFor="nombre"><LoginFlex>
-            <LoginLabelP>Nombre</LoginLabelP>
-            <LoginEmail type="text" name="name" id="name" placeholder="Nombres"  onChange={handleInputChange}  required ></LoginEmail><br /><br /></LoginFlex>
+             <LoginLabel >
+                <LoginLabelP>Nombre</LoginLabelP>
+                <LoginEmail type="text" name="name" id="name" onChange={handleInputChange}  required ></LoginEmail><br /><br /></LoginLabel>
 
-        <LoginLabel htmlFor="email"><LoginFlex>
-            <LoginLabelP>Email</LoginLabelP>
-            <LoginEmail type="email" name="email" id="email" placeholder="Correo Electronico"  onChange={handleInputChange}  required ></LoginEmail><br /><br /> </LoginFlex>
-             
-        
-        <LoginLabel htmlFor="username"><LoginFlex>
-            <LoginLabelP>Nombre de Usuario </LoginLabelP>
-            <LoginEmail type="text" name="username" id="username" placeholder="Ingrese Nombre de usuario"  onChange={handleInputChange}  required ></LoginEmail><br /><br /> </LoginFlex>
-            <LoginFlex><LoginLabelP>Direccion</LoginLabelP>
-            <LoginEmail type="text" name="street" onChange={handleInputChange} id="password" placeholder="direccion"   required ></LoginEmail><br /><br />
-           
-            <LoginButton onClick={()=>AddUser()} > <LoginH1G>Registrar</LoginH1G></LoginButton><br />
-            <LoginRegistrar href="/login" id="register">Regresar</LoginRegistrar></LoginFlex> 
+            <LoginLabel htmlFor="email">
+                <LoginLabelP>Correo Electronico</LoginLabelP>
+                <LoginEmail type="email" name="email" id="email" onChange={handleInputChange}  required ></LoginEmail><br /><br /></LoginLabel>
+                 
+            
+            <LoginLabel htmlFor="username">
+                <LoginLabelP>Nombre de Usuario </LoginLabelP>
+                <LoginEmail type="text" name="username" id="username" onChange={handleInputChange}  required ></LoginEmail><br /><br />
+              
+                
+             </LoginLabel>
+
+                <LoginLabel htmlFor="street">
+                <LoginLabelP>Direccion </LoginLabelP>
+                <LoginEmail type="text" name="street" id="street"   onChange={handleInputChange}  required ></LoginEmail><br /><br />
+                <LoginEmail type="text" name="suite" id="suite"   onChange={handleInputChange}  required ></LoginEmail><br /><br />
+               <LoginEmail type="text" name="city" id="city"   onChange={handleInputChange}  required ></LoginEmail><br /><br />
+                 <LoginEmail type="text" name="zipcode" id="zipcode"   onChange={handleInputChange}  required ></LoginEmail><br /><br />
+                  <LoginLabelP>Geo </LoginLabelP>
+                 <LoginEmail type="text" name="lat" id="lat" d  onChange={handleInputChange}  required ></LoginEmail><br /><br />
+                 <LoginEmail type="text" name="lng" id="lng"  onChange={handleInputChange}  required ></LoginEmail><br /><br />
+             </LoginLabel>
+            <LoginLabel htmlFor="phone">
+                <LoginLabelP>Telefono</LoginLabelP>
+                <LoginEmail type="text" name="phone" id="phone"   onChange={handleInputChange}  required ></LoginEmail><br /><br />
+              
+                
+             </LoginLabel>
+               <LoginLabel htmlFor="website">
+                <LoginLabelP>Sitio Web</LoginLabelP>
+                <LoginEmail type="text" name="website" id="website"   onChange={handleInputChange}  required ></LoginEmail><br /><br />
+              
+                
+             </LoginLabel>
+  <LoginLabel htmlFor="website">
+                <LoginLabelP>company</LoginLabelP>
+                <LoginEmail type="text" name="cname" id="cname"   onChange={handleInputChange}  required ></LoginEmail><br /><br />
+               <LoginEmail type="text" name="catchPhrase" id="catchPhrase"   onChange={handleInputChange}  required ></LoginEmail><br /><br />
+                <LoginEmail type="text" name="bs" id="bs"   onChange={handleInputChange}  required ></LoginEmail><br /><br />
+             </LoginLabel>
+            <LoginButton onClick={()=>AddUser()} > <LoginH1G>Agregar Usuario</LoginH1G></LoginButton><br />
+            <LoginRegistrar href="/" id="register">Regresar</LoginRegistrar></LoginFlex> 
             <br />
             
-        </LoginLabel></LoginLabel></LoginLabel>
+        </LoginLabel>
     </LoginForm>
         </>
     )
